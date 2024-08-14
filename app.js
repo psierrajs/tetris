@@ -70,14 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
     timeId = setInterval(moveDown, 1000)
 
     // assign functions to keyCodes
-    function control(e){
-        if(e.keyCode === 37){
+    function control(e) {
+        if (e.keyCode === 37) {
             moveLeft()
-        } else if(e.keyCode === 38){
+        } else if (e.keyCode === 38) {
             rotate()
-        } else if(e.keyCode === 39){
+        } else if (e.keyCode === 39) {
             moveRight()
-        } else if(e.keyCode === 40){
+        } else if (e.keyCode === 40) {
             moveDown()
         }
     }
@@ -117,28 +117,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // move the tetromino down, unless is at the edge or there is a blockage
-    function moveRight(){
+    function moveRight() {
         undraw()
-        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width -1)
+        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1)
 
-        if(!isAtRightEdge) currentPosition +=1
+        if (!isAtRightEdge) currentPosition += 1
 
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
-            currentPosition -=1
+        if (current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition -= 1
         }
 
         draw()
     }
 
     // rotate the tretromino
-    function rotate(){
+    function rotate() {
         undraw()
         currentRotation++
-        if(currentRotation === current.length) { // if the current rotation gets to 4, make it go back to 0
+        if (currentRotation === current.length) { // if the current rotation gets to 4, make it go back to 0
             currentRotation = 0
         }
         current = theTetrominoes[random][currentRotation]
         draw()
     }
 
+    // show up-next tetromino in mini-grid display
+    const displaySquares = document.querySelectorAll('.mini-grid div')
+    const displayWidth = 4
+    let displayIndex = 0
+
+    // the Tetronimoes without rotations
+    const upNextTetrominoes = [
+        [1, displayWidth + 1, displayWidth * 2 + 1, 2], //lTetromino
+        [0, displayWidth, displayWidth + 1, displayWidth + 2], //zTetromino
+        [1, displayWidth, displayWidth + 1], //oTetromino
+        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1] //iTetromino
+    ]
 })
