@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
 
     let currentPosition = 4
+
+    // randomly select a Tetromino and its first rotation
+    let random = Math.floor(Math.random()*theTetrominoes.length)
     let current = theTetrominoes[0][0]
 
     // draw the first rotation of the first tetromino
